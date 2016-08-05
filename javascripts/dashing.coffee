@@ -100,9 +100,12 @@ Dashing.debugMode = false
 source = new EventSource('events')
 source.addEventListener 'open', (e) ->
   console.log("Connection opened", e)
+  $('#watchdog').hide()
 
 source.addEventListener 'error', (e)->
   console.log("Connection error", e)
+  $('#watchdog').html '<p>OFFLINE</p>'
+  $('#watchdog').show()
   if (e.currentTarget.readyState == EventSource.CLOSED)
     console.log("Connection closed")
     setTimeout (->
